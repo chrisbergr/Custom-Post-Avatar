@@ -35,13 +35,13 @@ add_action( 'add_meta_boxes', 'custom_post_avatar_add_metabox' );
 add_filter( 'get_avatar', 'custom_post_avatar', 1, 5 );
 
 function custom_post_avatar_script() {
-    wp_enqueue_script( 'custom_post_avatar_script', plugin_dir_url( __FILE__ ) . '/custom-post-avatar.js' );
+	wp_enqueue_script( 'custom_post_avatar_script', plugin_dir_url( __FILE__ ) . '/custom-post-avatar.js' );
 }
 
 function custom_post_avatar_metabox ( $post ) {
 	$image_id = get_post_meta( $post->ID, '_custom_post_avatar_id', true );
 	if ( $image_id && get_post( $image_id ) ) {
-        $avatar_html = wp_get_attachment_image( $image_id, 'thumbnail' );
+		$avatar_html = wp_get_attachment_image( $image_id, 'thumbnail' );
 		if ( ! empty( $avatar_html ) ) {
 			$content = $avatar_html;
 			$content .= '<p class="hide-if-no-js"><a href="javascript:;" id="remove_custom_post_avatar_button" >' . esc_html__( 'Remove custom post avatar', 'custom-post-avatar' ) . '</a></p>';
@@ -64,13 +64,13 @@ function custom_post_avatar_save ( $post_id ) {
 
 function custom_post_avatar_add_metabox () {
 	add_meta_box(
-        'custompostavatardiv',
-        __( 'Custom Post Avatar', 'custom-post-avatar' ),
-        'custom_post_avatar_metabox',
-        'post',
-        'side',
-        'low'
-    );
+		'custompostavatardiv',
+		__( 'Custom Post Avatar', 'custom-post-avatar' ),
+		'custom_post_avatar_metabox',
+		'post',
+		'side',
+		'low'
+	);
 }
 
 function custom_post_avatar( $avatar, $id_or_email, $size, $default, $alt ) {
@@ -78,31 +78,31 @@ function custom_post_avatar( $avatar, $id_or_email, $size, $default, $alt ) {
 	if ( ! isset( $post->post_author ) ) {
 		return $avatar;
 	}
-    $avatar_id = get_post_meta( $post->ID, '_custom_post_avatar_id', true );
+	$avatar_id = get_post_meta( $post->ID, '_custom_post_avatar_id', true );
 	if ( ! $avatar_id ) {
 		return $avatar;
 	}
-    $user_email = false;
-    if ( is_numeric( $id_or_email ) ) {
-        $user_email = get_the_author_meta( 'user_email', absint( $id_or_email ) );
-    } elseif ( is_string( $id_or_email ) ) {
-        if ( strpos( $id_or_email, '@md5.gravatar.com' ) ) {
-            return $avatar;
-        } else {
-            $user_email = $id_or_email;
-        }
-    } elseif ( $id_or_email instanceof WP_User ) {
-        $user_email = $id_or_email->user_email;
-    } elseif ( $id_or_email instanceof WP_Post ) {
-        $user_email = get_the_author_meta( 'user_email', get_user_by( 'id', (int) $id_or_email->post_author ) );
-    } elseif ( $id_or_email instanceof WP_Comment ) {
-        return $avatar;
-    }
-    if ( ! $user_email || $user_email !== get_the_author_meta( 'user_email', $post->post_author ) ) {
+	$user_email = false;
+	if ( is_numeric( $id_or_email ) ) {
+		$user_email = get_the_author_meta( 'user_email', absint( $id_or_email ) );
+	} elseif ( is_string( $id_or_email ) ) {
+		if ( strpos( $id_or_email, '@md5.gravatar.com' ) ) {
+			return $avatar;
+		} else {
+			$user_email = $id_or_email;
+		}
+	} elseif ( $id_or_email instanceof WP_User ) {
+		$user_email = $id_or_email->user_email;
+	} elseif ( $id_or_email instanceof WP_Post ) {
+		$user_email = get_the_author_meta( 'user_email', get_user_by( 'id', (int) $id_or_email->post_author ) );
+	} elseif ( $id_or_email instanceof WP_Comment ) {
 		return $avatar;
-    }
-    $new_avatar = wp_get_attachment_image_url( $avatar_id, 'thumbnail' );
-    $avatar = preg_replace( '/src=("|\').*?("|\')/i', 'src="' . $new_avatar . '"', $avatar );
-    $avatar = preg_replace( '/srcset=("|\').*?("|\')/i', 'srcset="' . $new_avatar . '"', $avatar );
+	}
+	if ( ! $user_email || $user_email !== get_the_author_meta( 'user_email', $post->post_author ) ) {
+		return $avatar;
+	}
+	$new_avatar = wp_get_attachment_image_url( $avatar_id, 'thumbnail' );
+	$avatar = preg_replace( '/src=("|\').*?("|\')/i', 'src="' . $new_avatar . '"', $avatar );
+	$avatar = preg_replace( '/srcset=("|\').*?("|\')/i', 'srcset="' . $new_avatar . '"', $avatar );
 	return $avatar;
 }
