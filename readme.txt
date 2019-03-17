@@ -3,7 +3,7 @@ Contributors: chrisbergr
 Tags: avatar, user image, gravatar, replacement
 Requires at least: 4.9
 Tested up to: 5.1
-Stable tag: 0.9.1
+Stable tag: 0.9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -29,6 +29,11 @@ Upload the plugin to your WordPress Site/Blog, activate it and use it in your po
 In the first version you're able to select the custom post avatar from all images in the media library. The next step is to give each user an editable list of individual avatars which will be shown in the edit post sidebar as a radio button list.
 
 == Changelog ==
+
+= 0.9.2 =
+*Release Date - 17 March 2019*
+
+* Security improvement due to code review.
 
 = 0.9.1 =
 *Release Date - 15 March 2019*

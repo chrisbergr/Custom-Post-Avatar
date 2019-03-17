@@ -3,7 +3,7 @@
 Plugin Name: Custom Post Avatar
 Plugin URI:  https://wordpress.org/plugins/custom-post-avatar
 Description: This Plugin gives you the possibility to replace your default avatar by a custom image on each post individually.
-Version:     0.9.1
+Version:     0.9.2
 Text Domain: custom-post-avatar
 Author:      Christian Hockenberger
 Author URI:  https://christian.hockenberger.us
@@ -57,7 +57,7 @@ function custom_post_avatar_metabox ( $post ) {
 
 function custom_post_avatar_save ( $post_id ) {
 	if( isset( $_POST['_custom_post_avatar'] ) ) {
-		$image_id = (int) $_POST['_custom_post_avatar'];
+		$image_id = (int) sanitize_text_field( $_POST['_custom_post_avatar'] );
 		update_post_meta( $post_id, '_custom_post_avatar_id', $image_id );
 	}
 }
