@@ -3,7 +3,8 @@ Contributors: chrisbergr
 Tags: avatar, user image, gravatar, replacement
 Requires at least: 4.9
 Tested up to: 5.1
-Stable tag: 0.9.2
+Requires PHP: 5.2.4
+Stable tag: 0.9.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -30,13 +31,7 @@ In the first version you're able to select the custom post avatar from all image
 
 == Changelog ==
 
-= 0.9.2 =
-*Release Date - 17 March 2019*
-
-* Security improvement due to code review.
-
-= 0.9.1 =
-*Release Date - 15 March 2019*
+= 0.9.3 =
 
 * Initial version with basic functionality.
 
