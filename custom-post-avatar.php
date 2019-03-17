@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Custom Post Avatar
-Plugin URI:  https://github.com/chrisbergr/Custom-Post-Avatar
+Plugin URI:  https://wordpress.org/plugins/custom-post-avatar
 Description: This Plugin gives you the possibility to replace your default avatar by a custom image on each post individually.
 Version:     0.9.1
 Text Domain: custom-post-avatar
