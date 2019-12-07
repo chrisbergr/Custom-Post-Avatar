@@ -79,20 +79,24 @@ jQuery(document).ready(
 					response = jQuery.parseJSON( response.response );
 					jQuery( '#custom-post-avatar-uploader' ).removeClass( 'progress' );
 					if( response['status'] == 'success' ) {
+
 						//console.log( 'Success', up, file, response );
 						//var file_url = window.wpcpa_user_path_url + file['name'];
 						var file_url = response['attachment']['src'];
-						/*
-						var $img = jQuery( '<img>' );
-						$img.attr( 'src', file_url );
-						$img.attr( 'title', file_url.split(/[\\/]/).pop() );
-						$img.appendTo( '#custom-post-avatar-list' );
-						*/
+
+						var $label = jQuery('<label>');
+
 						var $radio = jQuery('<input type="radio" />');
 						$radio.attr( 'value', file_url.split(/[\\/]/).pop() );
 						$radio.attr( 'name', 'custom_post_avatar_default' );
-						$radio.attr( 'style', 'background-image:url(' + file_url + ');' );
-						$radio.appendTo( '#custom-post-avatar-list' );
+						$radio.appendTo( $label );
+
+						var $img = jQuery( '<img>' );
+						$img.attr( 'src', file_url );
+						$img.appendTo( $label );
+
+						$label.appendTo( '#custom-post-avatar-list' );
+
 					} else {
 						console.log( 'Error', up, file, response );
 					}

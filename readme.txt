@@ -4,7 +4,7 @@ Tags: avatar, user image, gravatar, replacement, local avatar
 Requires at least: 4.9
 Tested up to: 5.3
 Requires PHP: 5.2.4
-Stable tag: 0.9.4
+Stable tag: 0.9.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,10 @@ Upload the plugin to your WordPress Site/Blog, activate it and use it in your po
 
 == Changelog ==
 
+
+= 0.9.5 =
+
+* Bugfix: Visible avatar image after File upload in profile
 
 = 0.9.4 =
 
