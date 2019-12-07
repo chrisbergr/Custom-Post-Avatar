@@ -1,44 +1,104 @@
-jQuery(document).ready(function ($) {
+jQuery(document).ready(
+	function ( $ ) {
 
-	var file_frame;
+		//console.log( 'Hello Avatar :)' );
 
-	jQuery.fn.upload_custom_post_avatar = function (button) {
-		var button_id = button.attr('id');
-		var field_id = button_id.replace('_button', '');
-		if (file_frame) {
-			file_frame.open();
-			return;
+		jQuery(
+			function() {
+				jQuery( 'label img' ).on(
+					'click',
+					function() {
+						jQuery( this ).parents( 'label' ).children( 'input' ).click();
+					}
+				);
+			}
+		);
+
+		if( jQuery( '.custom-post-avatar-uploader' ).length > 0 ) {
+
+			var options = false;
+			var container = jQuery( '.custom-post-avatar-uploader' );
+
+			options = JSON.parse( JSON.stringify( window.wpcpa_uploader_options ) );
+			options['multipart_params']['_ajax_nonce'] = container.find( '.ajaxnonce' ).attr( 'id' );
+			options['resize'] = {
+				'width': 150,
+				'height': 150,
+				'quality': 100,
+				'crop': true
+			};
+			options['filters'] = {
+				'max_file_size' : '4mb',
+				'mime_types': [
+					{
+						'title' : "Image files",
+						'extensions' : "jpeg,jpg,gif,png"
+					}
+				],
+				'prevent_duplicates': true
+			};
+			if( container.hasClass( 'multiple' ) ) {
+				options['multi_selection'] = true;
+			}
+
+			var uploader = new plupload.Uploader( options );
+			uploader.init();
+
+			uploader.bind(
+				'Init',
+				function( up ) {
+					//console.log( 'Init', up );
+				}
+			);
+
+			uploader.bind(
+				'FilesAdded',
+				function( up, files ) {
+					jQuery.each(
+						files,
+						function( i, file ) {
+							//console.log( 'File Added', i, file );
+						}
+					);
+					up.refresh();
+					up.start();
+				}
+			);
+
+			uploader.bind(
+				'UploadProgress',
+				function( up, file ) {
+					//console.log( 'Progress', up, file );
+					jQuery( '#custom-post-avatar-uploader' ).addClass( 'progress' );
+				}
+			);
+
+			uploader.bind(
+				'FileUploaded',
+				function( up, file, response ) {
+					response = jQuery.parseJSON( response.response );
+					jQuery( '#custom-post-avatar-uploader' ).removeClass( 'progress' );
+					if( response['status'] == 'success' ) {
+						//console.log( 'Success', up, file, response );
+						//var file_url = window.wpcpa_user_path_url + file['name'];
+						var file_url = response['attachment']['src'];
+						/*
+						var $img = jQuery( '<img>' );
+						$img.attr( 'src', file_url );
+						$img.attr( 'title', file_url.split(/[\\/]/).pop() );
+						$img.appendTo( '#custom-post-avatar-list' );
+						*/
+						var $radio = jQuery('<input type="radio" />');
+						$radio.attr( 'value', file_url.split(/[\\/]/).pop() );
+						$radio.attr( 'name', 'custom_post_avatar_default' );
+						$radio.attr( 'style', 'background-image:url(' + file_url + ');' );
+						$radio.appendTo( '#custom-post-avatar-list' );
+					} else {
+						console.log( 'Error', up, file, response );
+					}
+				}
+			);
 		}
-		file_frame = wp.media.frames.file_frame = wp.media({
-			title: jQuery(this).data('uploader_title'),
-			button: {
-				text: jQuery(this).data('uploader_button_text'),
-			},
-			multiple: false
-		});
-		file_frame.on('select', function () {
-			var attachment = file_frame.state().get('selection').first().toJSON();
-			jQuery('#' + field_id).val(attachment.id);
-			jQuery('#custompostavatardiv img').attr('src', attachment.url);
-			jQuery('#custompostavatardiv img').show();
-			jQuery('#' + button_id).attr('id', 'remove_custom_post_avatar_button');
-			jQuery('#remove_custom_post_avatar_button').text('Remove custom post avatar');
-		});
-		file_frame.open();
-	};
 
-	jQuery('#custompostavatardiv').on('click', '#upload_custom_post_avatar_button', function (event) {
-		event.preventDefault();
-		jQuery.fn.upload_custom_post_avatar(jQuery(this));
-	});
-
-	jQuery('#custompostavatardiv').on('click', '#remove_custom_post_avatar_button', function (event) {
-		event.preventDefault();
-		jQuery('#upload_custom_post_avatar').val('');
-		jQuery('#custompostavatardiv img').attr('src', '');
-		jQuery('#custompostavatardiv img').hide();
-		jQuery(this).attr('id', 'upload_custom_post_avatar_button');
-		jQuery('#upload_custom_post_avatar_button').text('Set custom post avatar');
-	});
-
-});
+	}
+);

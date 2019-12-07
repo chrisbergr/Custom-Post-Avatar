@@ -1,10 +1,10 @@
 === Custom Post Avatar ===
 Contributors: chrisbergr
-Tags: avatar, user image, gravatar, replacement
+Tags: avatar, user image, gravatar, replacement, local avatar
 Requires at least: 4.9
-Tested up to: 5.1
+Tested up to: 5.2.4
 Requires PHP: 5.2.4
-Stable tag: 0.9.3
+Stable tag: 0.9.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -27,11 +27,19 @@ Upload the plugin to your WordPress Site/Blog, activate it and use it in your po
 
 == Roadmap ==
 
-In the first version you're able to select the custom post avatar from all images in the media library. The next step is to give each user an editable list of individual avatars which will be shown in the edit post sidebar as a radio button list.
+* Optional Caching of Commenter Avatars
+* Possibility to remove avatars from user profile
+* Possibility to edit other user avatars as admin
+* Possibility to remove avatar from post (reset to default)
 
 == Changelog ==
+
+
+= 0.9.4 =
+
+* Every user can add n avatars in their profile page
+* Custom avatar can be selected from predefined list (per user) in new/edit post screen
 
 = 0.9.3 =
 
 * Initial version with basic functionality.
-
