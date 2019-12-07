@@ -87,3 +87,9 @@
 .custom-post-avatar-uploader-button{
 	margin: 20px !important;
 }
+
+/* --- */
+
+.wp-admin .user-profile-picture{
+	display: none !important;
+}
