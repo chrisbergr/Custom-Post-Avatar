@@ -14,7 +14,7 @@ jQuery(document).ready(
 			}
 		);
 
-		if( jQuery( '.custom-post-avatar-uploader' ).length > 0 ) {
+		if( window.wpcpa_uploader_options && jQuery( '.custom-post-avatar-uploader' ).length > 0 ) {
 
 			var options = false;
 			var container = jQuery( '.custom-post-avatar-uploader' );

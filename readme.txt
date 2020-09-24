@@ -2,9 +2,9 @@
 Contributors: chrisbergr
 Tags: avatar, user image, gravatar, replacement, local avatar
 Requires at least: 4.9
-Tested up to: 5.3
+Tested up to: 5.5
 Requires PHP: 5.2.4
-Stable tag: 0.9.5
+Stable tag: 0.9.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -34,6 +34,11 @@ Upload the plugin to your WordPress Site/Blog, activate it and use it in your po
 
 == Changelog ==
 
+
+= 0.9.6 =
+
+* Bugfix: Custom Post Avatar has affected some comment avatars
+* Compatibility with WordPress 5.5
 
 = 0.9.5 =
 

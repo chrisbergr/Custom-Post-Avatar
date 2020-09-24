@@ -3,7 +3,7 @@
 Plugin Name: Custom Post Avatar
 Plugin URI:  https://wordpress.org/plugins/custom-post-avatar
 Description: This Plugin gives you the possibility to replace your default avatar by a custom image on each post individually.
-Version:     0.9.5
+Version:     0.9.6
 Text Domain: custom-post-avatar
 Author:      Christian Hockenberger
 Author URI:  https://christian.hockenberger.us
@@ -126,6 +126,11 @@ function custom_post_avatar_userid( $id_or_email ) {
 /**/
 
 function custom_post_avatar( $avatar, $id_or_email, $size, $default, $alt ) {
+
+	if( $id_or_email instanceof WP_Comment ) {
+		return $avatar;
+	}
+
 	global $plugin_custom_post_avatar;
 	global $post;
 
@@ -149,8 +154,6 @@ function custom_post_avatar( $avatar, $id_or_email, $size, $default, $alt ) {
 			$userid = (int) $id_or_email->user_id;
 		} elseif ( $id_or_email instanceof WP_Post ) {
 			$userid = (int) $id_or_email->post_author;
-		} elseif ( $id_or_email instanceof WP_Comment ) {
-			return $avatar;
 		} else {
 			$userid = custom_post_avatar_userid( $id_or_email );
 		}
@@ -160,41 +163,6 @@ function custom_post_avatar( $avatar, $id_or_email, $size, $default, $alt ) {
 	$avatar = preg_replace( '/src=("|\').*?("|\')/i', 'src="' . $new_avatar . '"', $avatar );
 	$avatar = preg_replace( '/srcset=("|\').*?("|\')/i', 'srcset="' . $new_avatar . '"', $avatar );
 	return $avatar;
-
-	/* --- *
-
-	if ( ! isset( $post->post_author ) ) {
-		return $avatar;
-	}
-	$avatar_id = get_post_meta( $post->ID, '_custom_post_avatar_id', true );
-	if ( ! $avatar_id ) {
-		return $avatar;
-	}
-	$user_email = false;
-	if ( is_numeric( $id_or_email ) ) {
-		$user_email = get_the_author_meta( 'user_email', absint( $id_or_email ) );
-	} elseif ( is_string( $id_or_email ) ) {
-		if ( strpos( $id_or_email, '@md5.gravatar.com' ) ) {
-			return $avatar;
-		} else {
-			$user_email = $id_or_email;
-		}
-	} elseif ( $id_or_email instanceof WP_User ) {
-		$user_email = $id_or_email->user_email;
-	} elseif ( $id_or_email instanceof WP_Post ) {
-		$user_email = get_the_author_meta( 'user_email', get_user_by( 'id', (int) $id_or_email->post_author ) );
-	} elseif ( $id_or_email instanceof WP_Comment ) {
-		return $avatar;
-	}
-	if ( ! $user_email || get_the_author_meta( 'user_email', $post->post_author ) !== $user_email ) {
-		return $avatar;
-	}
-	$new_avatar = wp_get_attachment_image_url( $avatar_id, 'thumbnail' );
-	$avatar     = preg_replace( '/src=("|\').*?("|\')/i', 'src="' . $new_avatar . '"', $avatar );
-	$avatar     = preg_replace( '/srcset=("|\').*?("|\')/i', 'srcset="' . $new_avatar . '"', $avatar );
-	return $avatar;
-
-	/* --- */
 
 }
 

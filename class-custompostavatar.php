@@ -131,7 +131,7 @@ class CustomPostAvatar {
 		);
 		?>
 		<script type="text/javascript">
-			window.wpcpa_uploader_options=<?php echo wp_json_encode( $uploader_options ); ?>;
+			window.wpcpa_uploader_options = <?php echo wp_json_encode( $uploader_options ); ?>;
 			window.wpcpa_user_path_url = '<?php echo esc_url_raw( $this->user_path_url ); ?>/';
 		</script>
 		<?php
